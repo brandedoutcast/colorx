@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="A Progressive Web App to preview colors on both dark & light themes">
+    <meta name="keywords" content="PWA, Progressive Web App, Color, Dark, Light, Theme, Preview, Palette, Colors">
+
+    <link rel="manifest" href="manifest.webmanifest">
+
+    <meta name="theme-color" content="#121212" />
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="icon" href="icon.png" sizes="256x256">
+
+    <meta name="apple-mobile-web-app-title" content="Totals">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="apple-touch-startup-image" href="icon.png">
+
+    <meta name="application-name" content="Totals">
+    <meta name="msapplication-TileImage" content="icon.png">
+    <meta name="msapplication-TileColor" content="#121212">
+    <meta name="msapplication-tooltip" content="Preview colors on dark / light themes">
+    <meta name="msapplication-starturl" content="/">
+
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+
+    <title>ColorX - Preview colors on dark / light themes</title>
+
+    <link rel="stylesheet" href="style.styl">
+</head>
+
+<body class="light">
+    <div id="wrapper">
+        <header>
+            <span id="title"><a href="/">ColorX</a></span>
+            <span id="switch">
+                <svg class="moon" viewBox="0 0 3.528 3.528">
+                    <path d="M0 2.308a1.633 1.634 0 0 0 1.168.494 1.633 1.634 0 0 0 1.634-1.634A1.633 1.634 0 0 0 2.31 0a1.815 1.816 0 0 1 1.217 1.712 1.815 1.816 0 0 1-1.815 1.816A1.815 1.816 0 0 1 0 2.309z" /></svg>
+                <svg class="sun" viewBox="0 0 3.528 3.528">
+                    <path d="M1.76 0l-.203.57A1.21 1.21 0 0 1 1.76.553a1.21 1.21 0 0 1 .203.018zM.513.517l.26.547A1.21 1.21 0 0 1 1.06.777zm2.494 0l-.547.26a1.21 1.21 0 0 1 .286.287zM1.76.752A1.011 1.011 0 0 0 .749 1.764a1.011 1.011 0 0 0 1.011 1.01 1.011 1.011 0 0 0 1.011-1.01A1.011 1.011 0 0 0 1.76.752zm-1.193.809l-.571.203.57.203a1.21 1.21 0 0 1-.017-.203 1.21 1.21 0 0 1 .018-.203zm2.386 0a1.21 1.21 0 0 1 .018.203 1.21 1.21 0 0 1-.019.203l.572-.203zm-2.18.902l-.26.548.547-.26a1.21 1.21 0 0 1-.287-.288zm1.973 0a1.21 1.21 0 0 1-.287.288l.548.26zm-1.19.493l.204.572.203-.57a1.21 1.21 0 0 1-.203.016 1.21 1.21 0 0 1-.204-.018z" /></svg>
+            </span>
+        </header>
+        <main>
+            <input type="text" id="input" placeholder="#ff0000, 00ff00, 00f">
+            <ul id="colors"></ul>
+        </main>
+    </div>
+
+    <script>
+        const inputEl = document.getElementById("input"),
+            colorsEl = document.getElementById("colors"),
+            modeEl = document.getElementById("switch"),
+            bodyEl = document.getElementsByTagName("body")[0]
+
+        inputEl.focus()
+
+        modeEl.addEventListener("click", function (e) {
+            if (bodyEl.className === "light") bodyEl.className = "dark"
+            else bodyEl.className = "light"
+        })
+
+        inputEl.addEventListener("keyup", function (e) {
+            if (e.key === "Enter") {
+                const codes = inputEl.value.split(",")
+
+                for (const code of codes)
+                    if (/^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(code.trim())) {
+                        const colorEl = document.createElement("li")
+                        colorEl.className = "color"
+                        colorEl.setAttribute("style", `background-color: ${code.indexOf("#") === 0 ? code.trim() : "#" + code.trim()}`)
+                        colorsEl.append(colorEl)
+                    }
+
+                inputEl.value = ""
+            }
+        })
+
+        if ("serviceWorker" in navigator)
+            navigator.serviceWorker.register("sw.js")
+    </script>
+</body>
+
+</html>

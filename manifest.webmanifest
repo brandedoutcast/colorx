@@ -1,0 +1,18 @@
+{
+    "name": "ColorX",
+    "short_name": "ColorX",
+    "description": "ColorX - Preview colors on dark / light themes!",
+    "background_color": "#121212",
+    "theme_color": "#121212",
+    "display": "standalone",
+    "orientation": "any",
+    "start_url": "/",
+    "lang": "en",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ]
+}

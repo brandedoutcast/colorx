@@ -1,0 +1,102 @@
+dark-bg = #121212
+dark-fg = #e1e1e1
+light-bg = white
+light-fg = #222222
+
+html, body
+    margin 0
+    padding 0
+    font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif
+
+body
+    user-select none
+    transition background-color 0.25s ease-in-out, color 0.25s ease-in-out
+
+    &.dark
+        background-color dark-bg
+        color dark-fg
+
+        #input
+            background-color dark-bg
+            color dark-fg
+        
+        .moon
+            display none
+
+        #title a
+            color dark-fg
+
+    &.light
+        background-color light-bg
+        color light-fg
+
+        #input
+            background-color light-bg
+            color light-fg
+
+        .sun
+            display none
+        
+        #title a
+            color light-fg
+
+#wrapper
+    max-width 1200px
+    margin 0 auto
+    display flex
+    flex-direction column
+
+header
+    padding 0.5em 1em
+    display flex
+    align-items center
+    justify-content space-between
+
+.sun, .moon
+    width 1.5em
+    height @width
+
+.moon
+    fill light-fg
+
+.sun
+    fill dark-fg
+
+#title
+    font-size 1.5em
+
+    a
+        text-decoration none
+        transition color 0.25s ease-in-out
+        font-weight bold
+
+#switch
+    cursor pointer
+
+main
+    flex 1
+    padding 1em
+    display flex
+    flex-direction column
+
+#input
+    font-size 1.25em
+    padding 0.5rem
+    margin 0
+    border none
+    border-bottom 1px solid #808080
+    transition background-color 0.25s ease-in-out, color 0.25s ease-in-out
+
+#colors
+    margin 0
+    padding 1em 0
+    list-style-type none
+    display flex
+    flex-wrap wrap
+    justify-content center
+
+.color
+    width 20vmin
+    height @width
+    margin 1em
+    border-radius (@height / 2)
